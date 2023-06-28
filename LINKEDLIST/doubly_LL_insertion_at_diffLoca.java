@@ -2,19 +2,22 @@ package LINKEDLIST;
 
 import java.util.Scanner;
 
-public class Insertion_at_diffLocation {
+public class doubly_LL_insertion_at_diffLoca {
     static class Node {
         int data;
         Node next;
+        Node prev;
 
         Node(int data) {
             this.data = data;
             this.next = null;
+            this.prev = null;
 
         }
     }
 
     Node head = null;
+    Node tail = null;
 
     public void creation() {
         int data;
@@ -28,6 +31,7 @@ public class Insertion_at_diffLocation {
             Node new_node = new Node(data);
             if (head == null) {
                 head = new_node;
+                tail = new_node;
             } else {
                 System.out.println(
                         "Enter 1 for insert element at beginning or Enter 2 for insert element at end or Enter 3 for specific location");
@@ -35,25 +39,27 @@ public class Insertion_at_diffLocation {
                 switch (enter_no) {
                     case 1:
                         new_node.next = head;
+                        head.prev = new_node;
                         head = new_node;
                         break;
                     case 2:
-                        Node temp = head;
-                        while (new_node.next != null) {
-                            temp = new_node.next;
-                        }
-                        temp.next = new_node;
-                        new_node.next = null;
+                        tail.next = new_node;
+                        new_node.prev = tail;
+                        tail = new_node;
                         break;
                     case 3:
                         System.out.println("Enter the position");
                         int pos = sc.nextInt();
-                        temp = head;
-                        for (int i = 0; i < pos - 1; i++) {
-                            temp = temp.next;
+                        Node temp1 = head;
+                        Node ptr = temp1.next;
+                        for (int i = 1; i < pos - 1; i++) {
+                            temp1 = ptr;
+                            ptr = ptr.next;
                         }
-                        new_node.next = temp.next;
-                        temp.next = new_node;
+                        new_node.prev = temp1;
+                        new_node.next = ptr;
+                        temp1.next = new_node;
+                        ptr.prev = new_node;
                         break;
 
                 }
@@ -74,7 +80,7 @@ public class Insertion_at_diffLocation {
 
         } else {
             while (temp != null) {
-                System.out.println(temp.data);
+                System.out.print(temp.data+" ");
                 temp = temp.next;
             }
 
@@ -83,7 +89,7 @@ public class Insertion_at_diffLocation {
     }
 
     public static void main(String[] args) {
-        Insertion_at_diffLocation l1 = new Insertion_at_diffLocation();
+        doubly_LL_insertion_at_diffLoca l1 = new doubly_LL_insertion_at_diffLoca();
         l1.creation();
         l1.traverse();
     }

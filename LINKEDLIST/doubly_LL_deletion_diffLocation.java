@@ -2,14 +2,16 @@ package LINKEDLIST;
 
 import java.util.Scanner;
 
-public class deletion_at_diffLocation {
+public class doubly_LL_deletion_diffLocation {
     static class Node {
         int data;
         Node next;
+        Node prev;
 
         Node(int data) {
             this.data = data;
             this.next = null;
+            this.prev = null;
 
         }
     }
@@ -30,8 +32,6 @@ public class deletion_at_diffLocation {
             if (head == null) {
                 head = new_node;
                 tail = new_node;
-                new_node.next = head;
-
             } else {
                 System.out.println(
                         "Enter 1 for insert element at beginning or Enter 2 for insert element at end or Enter 3 for specific location");
@@ -39,23 +39,27 @@ public class deletion_at_diffLocation {
                 switch (enter_no) {
                     case 1:
                         new_node.next = head;
+                        head.prev = new_node;
                         head = new_node;
-                        tail.next = head;
                         break;
                     case 2:
                         tail.next = new_node;
+                        new_node.prev = tail;
                         tail = new_node;
-                        new_node.next = head;
                         break;
                     case 3:
                         System.out.println("Enter the position");
                         int pos = sc.nextInt();
                         Node temp1 = head;
-                        for (int i = 0; i < pos - 1; i++) {
-                            temp1 = temp1.next;
+                        Node ptr = temp1.next;
+                        for (int i = 1; i < pos - 1; i++) {
+                            temp1 = ptr;
+                            ptr = ptr.next;
                         }
-                        new_node.next = temp1.next;
+                        new_node.prev = temp1;
+                        new_node.next = ptr;
                         temp1.next = new_node;
+                        ptr.prev = new_node;
                         break;
 
                 }
@@ -76,7 +80,7 @@ public class deletion_at_diffLocation {
 
         } else {
             while (temp != null) {
-                System.out.println(temp.data);
+                System.out.print(temp.data + " ");
                 temp = temp.next;
             }
 
@@ -97,34 +101,35 @@ public class deletion_at_diffLocation {
                 switch (n) {
                     case 1:
 
-                        Node temp = head;
-                        head = temp.next;
-                        tail.next = head;
+                        Node temp0 = head;
+                        temp0 = temp0.next;
+
+                        head = temp0;
+                        head.prev = null;
 
                         break;
                     case 2:
-                        Node ptr; // two pointer req temp and ptr
-                        temp = head;
-                        ptr = temp.next;
-                        while (ptr.next != head) {
-                            temp = ptr;
-                            ptr = ptr.next;
 
-                        }
-                        temp.next = head;
-                        temp = tail;
+                        Node temp6 = tail;
+                        temp6 = temp6.prev;
+                        temp6.next = null;
+
 
                         break;
                     case 3:
+                        Node ptr1;
+                        Node temp2;
                         System.out.println("Enter the position:");
                         p = sc.nextInt();
-                        temp = head;
-                        ptr = temp.next;
+                        temp2 = head;
+                        ptr1 = temp2.next;
                         for (int i = 0; i < p - 2; i++) {
-                            temp = ptr;
-                            ptr = ptr.next;
+                            temp2 = ptr1;
+                            ptr1 = ptr1.next;
+
                         }
-                        temp.next = ptr.next;
+                        temp2.next = ptr1.next;
+                        ptr1.next.prev = temp2;
                         break;
 
                 }
@@ -136,10 +141,9 @@ public class deletion_at_diffLocation {
     }
 
     public static void main(String[] args) {
-        deletion_at_diffLocation l1 = new deletion_at_diffLocation();
+        doubly_LL_deletion_diffLocation l1 = new doubly_LL_deletion_diffLocation();
         l1.creation();
         l1.deletion();
-
         l1.traverse();
     }
 }

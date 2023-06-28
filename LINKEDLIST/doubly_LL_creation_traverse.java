@@ -2,20 +2,22 @@ package LINKEDLIST;
 
 import java.util.Scanner;
 
-public class single_creation {
+public class doubly_LL_creation_traverse {
     static class Node {
-        public Node prev;
         int data;
         Node next;
+        Node prev;
 
         Node(int data) {
             this.data = data;
             this.next = null;
+            this.prev = null;
 
         }
     }
 
     Node head = null;
+    Node tail = null;
 
     public void creation() {
         int data;
@@ -29,7 +31,9 @@ public class single_creation {
             Node new_node = new Node(data);
             if (head == null) {
                 head = new_node;
+                tail = new_node;
             } else {
+                head.prev = new_node;
                 new_node.next = head;
                 head = new_node;
 
@@ -58,7 +62,7 @@ public class single_creation {
     }
 
     public static void main(String[] args) {
-       single_creation l1 = new single_creation();
+        single_creation l1 = new single_creation();
         l1.creation();
         l1.traverse();
     }
