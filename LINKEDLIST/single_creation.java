@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class single_creation {
     static class Node {
-        public Node prev;
+
         int data;
         Node next;
 
