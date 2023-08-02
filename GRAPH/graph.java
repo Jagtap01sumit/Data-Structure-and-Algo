@@ -8,8 +8,8 @@ class graph_implementaion {
 
     public graph_implementaion(int v) {
         adjacency = new LinkedList[v];
-        for(int i=0;i<v;i++){
-            adjacency[i]=new LinkedList<Integer>();
+        for (int i = 0; i < v; i++) {
+            adjacency[i] = new LinkedList<Integer>();
         }
     }
 
@@ -19,22 +19,44 @@ class graph_implementaion {
 
 
     }
-    public void bfs(int source){
-        boolean visited_node[]=new boolean[adjacency.length];//array for visited node
-        int parent_node[]=new int[adjacency.length];
-        Queue<Integer> q=new LinkedList<>();
-q.add(source);
-        visited_node[source]=true;
-        parent_node[source]=-1;
 
-        while(!q.isEmpty()){
-            int p=q.poll();
-            System.out.print(p+" ");
-            for(int i:adjacency[p]){
-                if(visited_node[i]!=true){
-                    visited_node[i]=true;
+    public void bfs(int source) {
+        boolean visited_node[] = new boolean[adjacency.length];//array for visited node
+        int parent_node[] = new int[adjacency.length];
+        Queue<Integer> q = new LinkedList<>();
+        q.add(source);
+        visited_node[source] = true;
+        parent_node[source] = -1;
+
+        while (!q.isEmpty()) {
+            int p = q.poll();
+            System.out.print(p + " ");
+            for (int i : adjacency[p]) {
+                if (visited_node[i] != true) {
+                    visited_node[i] = true;
                     q.add(i);
-                    parent_node[i]=p;
+                    parent_node[i] = p;
+                }
+
+            }
+        }
+    }
+    public void dfs(int source) {
+        boolean visited_node[] = new boolean[adjacency.length];//array for visited node
+        int parent_node[] = new int[adjacency.length];
+        Stack<Integer> q = new Stack<>();
+        q.add(source);
+        visited_node[source] = true;
+        parent_node[source] = -1;
+
+        while (!q.isEmpty()) {
+            int p = q.pop();
+            System.out.print(p + " ");
+            for (int i : adjacency[p]) {
+                if (visited_node[i] != true) {
+                    visited_node[i] = true;
+                    q.add(i);
+                    parent_node[i] = p;
                 }
 
             }
@@ -60,7 +82,10 @@ public class graph {
 
         }
         System.out.println("Enter the source:");
-        int source=sc.nextInt();
+        int source = sc.nextInt();
         g.bfs(source);
+        System.out.println();
+        System.out.println("DFS");
+        g.dfs(source);
     }
 }
